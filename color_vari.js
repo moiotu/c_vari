@@ -56,7 +56,7 @@ $(function(){
 			    cache: false,
 			    success: function(json) {
 					var _html = json.cvari;
-					_html = _html.replace('demo-service.ebisumart.com/', 'dev-service.ebisumart.com/');
+					_html = _html.replace('demo-service.ebisumart.com', 'dev-service.ebisumart.com');
 				
 			       $("#color_vari").html(_html);
 // smoothDivScrool Call
