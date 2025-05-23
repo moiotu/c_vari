@@ -27,10 +27,10 @@ function getReferrerVars(){
 
 function getpid(){
 
-  let url = new URL(window.location.href);// URL‚ğæ“¾
-  let params = url.searchParams;// URLSearchParamsƒIƒuƒWƒFƒNƒg‚ğæ“¾
+  let url = new URL(window.location.href);// URLã‚’å–å¾—
+  let params = url.searchParams;// URLSearchParamsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
  
-  // getƒƒ\ƒbƒh‚É‚Äæ“¾
+  // getãƒ¡ã‚½ãƒƒãƒ‰ã«ã¦å–å¾—
   pid = params.get('pid');
 
   return pid;
@@ -55,7 +55,10 @@ $(function(){
 
 			    cache: false,
 			    success: function(json) {
-			       $("#color_vari").html(json.cvari);
+					var _html = json.cvari;
+					_html = _html.replace('demo-service.ebisumart.com/', 'dev-service.ebisumart.com/');
+				
+			       $("#color_vari").html(_html);
 // smoothDivScrool Call
 /*
 			      $(function() {
