@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Color Variation Proxy Example</title>
+  <style>
+    iframe {
+      width: 100%;
+      height: 0px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>カラーバリエーション表示</h1>
+
+  <iframe id="colorvari"></iframe>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const ref = location.href;
+      const filename = ref.split("/").pop().split(".")[0]; // ファイル名 → xxx.html → xxx
+      const iframe = document.getElementById("colorvari");
+
+      // Netlify Function 経由で取得して iframe に書き込む
+      fetch("/.netlify/functions/proxy?pid=" + filename)
+        .then(res => res.text())
+        .then(html => {
+          const doc = iframe.contentDocument || iframe.contentWindow.document;
+          doc.open();
+          doc.write(html);
+          doc.close();
+        });
+    });
+
+    // 高さ調整（iframe内から postMessage で送られてくる想定）
+    window.addEventListener('message', function(e) {
+      // dev-service.ebisumart.com 側からのメッセージを受ける（適宜ドメイン変更）
+      if (e.origin === "https://dev-service.ebisumart.com") {
+        document.getElementById('colorvari').style.height = e.data + "px";
+      }
+    }, false);
+  </script>
+
+</body>
+</html>
