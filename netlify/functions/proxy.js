@@ -10,6 +10,7 @@ exports.handler = async function(event, context) {
 
     // ドメイン置換: demo-service → dev-service
     html = html.replace(/https:\/\/demo-service\.ebisumart\.com/g, 'https://dev-service.ebisumart.com');
+    html = html.replace(/src=["']jquery\.jsonp\.js["']/g, 'src="../jquery.jsonp.js"');
 
     return {
       statusCode: 200,
